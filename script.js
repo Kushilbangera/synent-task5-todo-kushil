@@ -1,5 +1,5 @@
 // ========================================
-// TaskFlow - Add & Delete Functionality
+// TaskFlow - Task Management
 // ========================================
 
 // DOM Elements
@@ -7,10 +7,16 @@ const taskForm = document.getElementById("task-form");
 const taskInput = document.getElementById("task-input");
 const taskList = document.getElementById("task-list");
 const emptyState = document.getElementById("empty-state");
+
 const taskCount = document.getElementById("task-count");
+const totalTasks = document.getElementById("total-tasks");
+const activeTasks = document.getElementById("active-tasks");
+const completedTasks = document.getElementById("completed-tasks");
+
+const clearCompletedBtn = document.getElementById("clear-completed");
 
 
-// Store tasks temporarily
+// Store tasks
 let tasks = [];
 
 
@@ -24,12 +30,10 @@ taskForm.addEventListener("submit", function (event) {
 
     const taskText = taskInput.value.trim();
 
-    // Prevent empty tasks
     if (taskText === "") {
         return;
     }
 
-    // Create new task
     const task = {
         id: Date.now(),
         text: taskText,
@@ -38,27 +42,22 @@ taskForm.addEventListener("submit", function (event) {
 
     tasks.push(task);
 
-    // Display tasks
     renderTasks();
 
-    // Clear input
     taskInput.value = "";
 
-    // Focus input again
     taskInput.focus();
 });
 
 
 // ========================================
-// Display Tasks
+// Render Tasks
 // ========================================
 
 function renderTasks() {
 
-    // Clear existing tasks
     taskList.innerHTML = "";
 
-    // Show empty state if no tasks
     if (tasks.length === 0) {
 
         emptyState.style.display = "block";
@@ -73,11 +72,16 @@ function renderTasks() {
 
             taskItem.className = "task-item";
 
+            if (task.completed) {
+                taskItem.classList.add("completed");
+            }
+
             taskItem.innerHTML = `
                 <input
                     type="checkbox"
                     class="task-checkbox"
                     data-id="${task.id}"
+                    ${task.completed ? "checked" : ""}
                 >
 
                 <span class="task-text">
@@ -98,8 +102,32 @@ function renderTasks() {
         });
     }
 
-    updateTaskCount();
+    updateStatistics();
 }
+
+
+// ========================================
+// Complete / Uncomplete Task
+// ========================================
+
+taskList.addEventListener("change", function (event) {
+
+    if (!event.target.classList.contains("task-checkbox")) {
+        return;
+    }
+
+    const taskId = Number(event.target.dataset.id);
+
+    const task = tasks.find(function (task) {
+        return task.id === taskId;
+    });
+
+    if (task) {
+        task.completed = event.target.checked;
+    }
+
+    renderTasks();
+});
 
 
 // ========================================
@@ -123,18 +151,45 @@ taskList.addEventListener("click", function (event) {
 
 
 // ========================================
-// Update Task Count
+// Clear Completed Tasks
 // ========================================
 
-function updateTaskCount() {
+clearCompletedBtn.addEventListener("click", function () {
 
-    taskCount.textContent = tasks.length;
+    tasks = tasks.filter(function (task) {
+        return !task.completed;
+    });
+
+    renderTasks();
+});
+
+
+// ========================================
+// Update Statistics
+// ========================================
+
+function updateStatistics() {
+
+    const total = tasks.length;
+
+    const completed = tasks.filter(function (task) {
+        return task.completed;
+    }).length;
+
+    const active = total - completed;
+
+    // Header counter
+    taskCount.textContent = total;
+
+    // Statistics cards
+    totalTasks.textContent = total;
+    activeTasks.textContent = active;
+    completedTasks.textContent = completed;
 }
 
 
 // ========================================
 // Security Helper
-// Prevent HTML Injection
 // ========================================
 
 function escapeHTML(text) {
