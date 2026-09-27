@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>TaskFlow - To-Do List</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <main class="app-container">
+
+        <section class="todo-app">
+
+            <!-- Header -->
+            <header class="app-header">
+                <div>
+                    <p class="app-label">PERSONAL PRODUCTIVITY</p>
+                    <h1>TaskFlow</h1>
+                    <p class="app-subtitle">
+                        Organize your day, one task at a time.
+                    </p>
+                </div>
+
+                <div class="task-summary">
+                    <span id="task-count">0</span>
+                    <small>Tasks</small>
+                </div>
+            </header>
+
+
+            <!-- Add Task -->
+            <form id="task-form" class="task-form">
+
+                <input
+                    type="text"
+                    id="task-input"
+                    placeholder="What needs to be done?"
+                    autocomplete="off"
+                    required
+                >
+
+                <button type="submit" id="add-task-btn">
+                    Add Task
+                </button>
+
+            </form>
+
+
+            <!-- Task Statistics -->
+            <div class="task-stats">
+
+                <div class="stat-card">
+                    <span id="total-tasks">0</span>
+                    <small>Total</small>
+                </div>
+
+                <div class="stat-card">
+                    <span id="active-tasks">0</span>
+                    <small>Active</small>
+                </div>
+
+                <div class="stat-card">
+                    <span id="completed-tasks">0</span>
+                    <small>Completed</small>
+                </div>
+
+            </div>
+
+
+            <!-- Task List -->
+            <section class="tasks-section">
+
+                <div class="section-heading">
+                    <h2>My Tasks</h2>
+
+                    <button
+                        id="clear-completed"
+                        class="clear-btn"
+                        type="button"
+                    >
+                        Clear Completed
+                    </button>
+                </div>
+
+                <ul id="task-list" class="task-list">
+                    <!-- Tasks will be added here using JavaScript -->
+                </ul>
+
+                <!-- Empty State -->
+                <div id="empty-state" class="empty-state">
+
+                    <div class="empty-icon">✓</div>
+
+                    <h3>No tasks yet</h3>
+
+                    <p>
+                        Add your first task and start getting things done.
+                    </p>
+
+                </div>
+
+            </section>
+
+        </section>
+
+    </main>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
