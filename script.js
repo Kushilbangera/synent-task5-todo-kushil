@@ -16,8 +16,26 @@ const completedTasks = document.getElementById("completed-tasks");
 const clearCompletedBtn = document.getElementById("clear-completed");
 
 
-// Store tasks
-let tasks = [];
+// ========================================
+// Load Saved Tasks
+// ========================================
+
+let tasks = JSON.parse(
+    localStorage.getItem("taskflowTasks")
+) || [];
+
+
+// ========================================
+// Save Tasks
+// ========================================
+
+function saveTasks() {
+
+    localStorage.setItem(
+        "taskflowTasks",
+        JSON.stringify(tasks)
+    );
+}
 
 
 // ========================================
@@ -41,6 +59,8 @@ taskForm.addEventListener("submit", function (event) {
     };
 
     tasks.push(task);
+
+    saveTasks();
 
     renderTasks();
 
@@ -123,7 +143,10 @@ taskList.addEventListener("change", function (event) {
     });
 
     if (task) {
+
         task.completed = event.target.checked;
+
+        saveTasks();
     }
 
     renderTasks();
@@ -146,6 +169,8 @@ taskList.addEventListener("click", function (event) {
         return task.id !== taskId;
     });
 
+    saveTasks();
+
     renderTasks();
 });
 
@@ -159,6 +184,8 @@ clearCompletedBtn.addEventListener("click", function () {
     tasks = tasks.filter(function (task) {
         return !task.completed;
     });
+
+    saveTasks();
 
     renderTasks();
 });
@@ -178,12 +205,12 @@ function updateStatistics() {
 
     const active = total - completed;
 
-    // Header counter
     taskCount.textContent = total;
 
-    // Statistics cards
     totalTasks.textContent = total;
+
     activeTasks.textContent = active;
+
     completedTasks.textContent = completed;
 }
 
