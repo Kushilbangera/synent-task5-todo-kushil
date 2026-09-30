@@ -15,17 +15,42 @@
 
         <section class="todo-app">
 
-            <!-- Header -->
-            <header class="app-header">
-                <div>
-                    <p class="app-label">PERSONAL PRODUCTIVITY</p>
-                    <h1>TaskFlow</h1>
-                    <p class="app-subtitle">
-                        Organize your day, one task at a time.
-                    </p>
-                </div>
+          <header class="app-header">
 
-                <div class="task-summary">
+    <div class="header-content">
+
+        <p class="app-label">PERSONAL PRODUCTIVITY</p>
+
+        <h1>TaskFlow</h1>
+
+        <p class="app-subtitle">
+            Organize your day, one task at a time.
+        </p>
+
+    </div>
+
+    <div class="header-actions">
+
+        <button
+            id="theme-toggle"
+            class="theme-toggle"
+            type="button"
+            aria-label="Toggle dark mode"
+        >
+            🌙
+        </button>
+
+        <div class="task-summary">
+
+            <span id="task-count">0</span>
+
+            <small>Tasks</small>
+
+        </div>
+
+    </div>
+
+</header>
                     <span id="task-count">0</span>
                     <small>Tasks</small>
                 </div>
@@ -74,17 +99,72 @@
             <!-- Task List -->
             <section class="tasks-section">
 
-                <div class="section-heading">
-                    <h2>My Tasks</h2>
+                <!-- Progress Section -->
+<div class="progress-section">
 
-                    <button
-                        id="clear-completed"
-                        class="clear-btn"
-                        type="button"
-                    >
-                        Clear Completed
-                    </button>
-                </div>
+    <div class="progress-header">
+        <div>
+            <span class="progress-label">TODAY'S PROGRESS</span>
+            <h3>Keep going, you're doing great!</h3>
+        </div>
+
+        <strong id="progress-percentage">0%</strong>
+    </div>
+
+    <div class="progress-bar">
+        <div
+            id="progress-fill"
+            class="progress-fill"
+        ></div>
+    </div>
+
+</div>
+
+
+<!-- Tasks Header -->
+<div class="section-heading">
+
+    <h2>My Tasks</h2>
+
+    <button
+        id="clear-completed"
+        class="clear-btn"
+        type="button"
+    >
+        Clear Completed
+    </button>
+
+</div>
+
+
+<!-- Task Filters -->
+<div class="task-filters">
+
+    <button
+        class="filter-btn active"
+        data-filter="all"
+        type="button"
+    >
+        All
+    </button>
+
+    <button
+        class="filter-btn"
+        data-filter="active"
+        type="button"
+    >
+        Active
+    </button>
+
+    <button
+        class="filter-btn"
+        data-filter="completed"
+        type="button"
+    >
+        Completed
+    </button>
+
+</div>
 
                 <ul id="task-list" class="task-list">
                     <!-- Tasks will be added here using JavaScript -->
